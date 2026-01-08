@@ -21,14 +21,7 @@ I architected a data workflow to centralize a "Single Source of Truth" and colla
 
 To support the strategic expansion, we needed to identify the mathematically optimal distribution node to minimize shipping costs. We moved beyond intuition-based planning to build a **Weighted Center of Gravity (CoG)** model.
 
-* **Filtering the Scope:** I wrote scripts to isolate the "Problem Region" (Shipping Zones 7 & 8), focusing purely on high-cost West Coast demand rather than skewing the data with local East Coast orders.
-* **The Physics of "Weighted Average":**
-    * *Logic:* `Coordinate * Shipment Weight`
-    * *Why:* A 50lb shipment exerts 50x more "cost pressure" on the warehouse location than a 1lb shipment. This ensured the model prioritized heavy, expensive-to-ship orders.
-* **Reverse Geocoding (The Translator):**
-    * *The Problem:* The CoG formula output raw coordinates (e.g., `39.5, -118.2`) which were meaningless to business stakeholders.
-    * *The Solution:* I engineered a custom function, `estimate_closest_state`, utilizing **Pandas broadcasting** to instantly calculate the distance between the target point and 20 candidate states.
-    * *Manhattan Distance Heuristic:* Implemented a Manhattan Distance calculation (`|Lat1-Lat2| + |Lon1-Lon2|`) rather than Haversine. This was chosen for computational efficiency while providing sufficient accuracy for state-level selection.
+* **Filtering the Scope:** Co-developed a Weighted Center of Gravity (CoG) model to identify the mathematically optimal northern region distribution node. I engineered the core data logic, using Pandas to isolate high-cost shipping zones and implementing a custom reverse-geocoding function (utilizing broadcasting and Manhattan Distance heuristics) to translate raw coordinates into actionable state-level recommendations.
 
 ### 2. Establishing a "Single Source of Truth"
 *Focus: Independent Ownership*
